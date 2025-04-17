@@ -1,0 +1,96 @@
+<div align="center">
+	<h1>Please Review Before Paying</h1>
+
+	<table class="w3-table-all w3-striped">
+		<tr>
+			<th>Item</th>
+			<th>Picture</th>
+			<th>Quantity</th>
+		</tr>
+		#foreach ( $detail in $order.getDetails() ) 
+		#set ( $item = $detail.getItem() )
+		<tr>
+			<td>$!item.Title <br /> $!item.Description <br />
+				$!item.getFormattedPrice()
+			</td>
+			<td>
+				<div class="w3-display-container" style="width: 250px;">
+					<img src="$content.getURI("images/uploads/$item.FileName")" width="100%">
+				</div>
+			</td>
+			<td> $!detail.getQuantity()  </td>
+		</tr>
+		#end
+
+	</table>
+
+	<h2>Payment details</h2>
+	<table class="w3-table-all w3-striped">
+	
+	
+		<tr>
+			<td>Subtotal:</td>
+			<td>$!formatter.getMoneyFormat( $!order.Subtotal )</td>
+		</tr>
+		
+		<tr>
+			<td>Shipping:</td>
+			<td>$!formatter.getMoneyFormat( $!order.Shipping )</td>
+		</tr>
+		<tr>
+			<td>Tax:</td>
+			<td>$!formatter.getMoneyFormat( $!order.Tax )</td>
+		</tr>
+		<tr>
+			<td>Total:</td>
+			<td>$!formatter.getMoneyFormat( $!order.Total )</td>
+		</tr>
+	
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2"><b>Payer Information:</b></td>
+		</tr>
+		<tr>
+			<td>Name:</td>
+			<td>$!order.CustomerFirstName $order.CustomerLastName</td>
+		</tr>
+		<tr>
+			<td>Email:</td>
+			<td>$!order.CustomerEmail</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2"><b>Shipping Address:</b></td>
+		</tr>
+		<tr>
+			<td>Ship To:</td>
+			<td>$!order.RecipientName <br /> $!order.AddressLine1 <br />
+				$!order.AddressLine2 <br /> $!order.City, $!order.State <br />
+				$!order.Zip <br /> $!order.Country
+			</td>
+		</tr>
+	</table>
+
+
+	<p>If your order looks good, just click the button to pay below. </p>
+	
+	<form 
+		id="orderReview"
+		method="post" 
+		action="$link.setAction("CartSQL").setPage("paypal,Receipt.vm")" 
+		class="w3-form">
+
+		<input type="hidden" name="paymentId" value="$paymentId"/> 
+		<input type="hidden" name="PayerID" value="$PayerID"/>
+		<input type="hidden" name="refId" value="$order.RefId"/>
+
+		<div class="w3-center">
+			<input type="submit" class="w3-button w3-blue" name="eventSubmit_doPayment" value="Pay Now">
+		</div>
+
+	</form>
+</div>

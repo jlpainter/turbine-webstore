@@ -1,0 +1,27 @@
+
+<!--  default login without Intake  -->
+<form class="w3-container w3-light-grey" name="login" method="post" action="$link.setAction("LoginUser")">
+	<div class="w3-section">
+
+		<p>
+			<input class="w3-input w3-border" style="margin: auto; width: 200px;"
+				placeholder="Username" type="text" name="username" value=""
+				tabindex="1" autocomplete="off" autofocus="">
+		</p>
+
+		<p>
+			<input class="w3-input w3-border" style="margin: auto; width: 200px;"
+				placeholder="Password" type="password" name="password" value=""
+				tabindex="2" autocomplete="off">
+		</p>
+
+		<button type="submit" name="submit" id="submit"
+			value="eventSubmit_doPerform" class="w3-ripple" tabindex="3">Sign
+			in</button>
+
+		<p />
+
+	</div>
+</form>
+
+

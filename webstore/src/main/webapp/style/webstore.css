@@ -1,0 +1,45 @@
+/*
+    -------------------------------------------------------------------------
+      @name: stuffedChickens.css - Toolkit CSS design
+      @author: The Initial Developer of the Original Code is:
+               Jeffery L. Painter  <jeff@jivecast.com>
+
+      @copyright: Copyright(c) 2014-2020 JiveCast. All rights reserved.
+    -------------------------------------------------------------------------
+*/
+
+/** Begin Base Layout **/
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+input:focus {
+	background-color: #ecffd8;
+}
+
+#header-fixed {
+	position: fixed;
+	top: 0px;
+	display: none;
+	background-color: white;
+}
+
+/* The navigation bar */
+.topnav {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	padding: 0;
+	letter-spacing: 1px;
+}
+
+.navbar {
+	overflow: hidden;
+	background-color: #ffffff;
+	position: fixed; /* Set the navbar to fixed position */
+	top: 0; /* Position the navbar at the top of the page */
+	width: 100%; /* Full width */
+}
+

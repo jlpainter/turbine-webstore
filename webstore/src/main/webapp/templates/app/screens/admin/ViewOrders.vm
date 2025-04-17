@@ -1,0 +1,81 @@
+<h1>Orders</h1>
+
+
+<a class="w3-button w3-large w3-pink"  target="_blank" href="$link.setPage("pdf,ShippingLabels.vm")"> Print Shipping Labels <i class="fas fa-file-pdf"></i></a>
+<a class="w3-button w3-large w3-blue"  target="_blank" href="$link.setPage("pdf,Invoice.vm").addPathInfo("all", "1")"> Print All <i class="fas fa-file-pdf"></i></a>
+
+<table class="w3-table-all w3-striped">
+	<tr>
+		<th>Order</th>
+		<th>Status</th>
+		<th>Date Purchased</th>
+		<th>Order Details</th>
+		<th>Purchase Price</th>
+		<th>Shipping Info</th>
+		<th>Update</th>
+	</tr>
+
+	#foreach ( $order in $entries )
+	<tr>
+		<td>
+			<a class="w3-button w3-large w3-blue" target="_blank" href="$link.setPage("pdf,Invoice.vm").addPathInfo("refId", $!order.RefId)"> $!order.RefId <i class="fas fa-file-pdf"></i></a>
+		</td>
+		<td> $!order.getStatus() </td>
+		<td>$!date.displayDate($!order.OrderDate)</td>
+		<td>
+			<table class="w3-table">
+				<tr>
+					
+					<th>Item</th>
+					<th>Picture</th>
+					<th>Quantity</th>
+				</tr>
+				#foreach ( $detail in $order.getDetails() ) 
+				#set ( $item = $detail.getItem() )
+				<tr>
+					<td>$!item.Title <br /> $!item.Description <br />
+						$!item.getFormattedPrice()
+					</td>
+					<td>
+						<div class="w3-display-container" style="width: 250px;">
+							<img src="$content.getURI("images/uploads/$item.FileName")" width="100%">
+						</div>
+					</td>
+					<td>$!detail.Quantity</td>
+				</tr>
+				#end
+
+			</table>
+		</td>
+		<td>$order.Total</td>
+		<td><b>Ship To:</b> 
+<pre>$!order.getShippingInfo()</pre></td>
+		<td>
+			#if ( $!order.getStatus() == "Paid" )
+			<form name="updateShip" method="post" action="$link.setAction("admin.OrderAction").setPage("admin,ViewOrders.vm")">
+				<input type="hidden" name="refId" value="$order.RefId"> <input
+					type="submit" name="eventSubmit_doShip" value="Mark Shipped" />
+			</form>
+			#end
+
+			#if ( $!order.getStatus() == "Complete" )
+			<form name="updateShip" method="post" action="$link.setAction("admin.OrderAction").setPage("admin,ViewOrders.vm").addPathInfo("mode", "completed")">
+				<input type="hidden" name="refId" value="$order.RefId"> <input
+					type="submit" name="eventSubmit_doUnship" value="Mark Not Shipped" />
+			</form>
+			#end
+
+
+			#if ( $!order.getStatus() == "Unpaid" )
+			<form name="updateShip" method="post" action="$link.setAction("admin.OrderAction").setPage("admin,ViewOrders.vm").addPathInfo("mode", "incomplete")">
+				<input type="hidden" name="refId" value="$order.RefId"> <input
+					type="submit" name="eventSubmit_doCancel" value="Cancel Order" />
+			</form>
+			#end
+
+			
+		</td>
+	</tr>
+
+	#end
+</table>

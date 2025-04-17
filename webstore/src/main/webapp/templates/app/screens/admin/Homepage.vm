@@ -1,0 +1,17 @@
+<h1>Homepage Editor</h1>
+
+<!-- ----------------------------------------------------------------------------------- -->
+<div class="w3-container w3-bordered w3-light-grey w3-padding">
+	<form class="w3-container" name="company" method="post"
+		enctype="multipart/form-data" action="$link.setPage("admin,Homepage.vm").setAction("admin.ConfigSQL")">
+	
+			#if ( $config ) 
+				<input type="hidden" name="refId" value="$!config.RefId"> 
+			#end
+			 
+			#textareaField( "Welcome Message" "welcomeMessage" $!config.WelcomeMessage ) 
+			#fileUpload("Homepage Image" "filename" ) 
+			<br /> 
+			<input type="submit" name="eventSubmit_doHomepage" value="Save" />
+	</form>
+</div>

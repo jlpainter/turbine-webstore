@@ -1,0 +1,94 @@
+
+<div class="w3-container">
+
+#if ( $entry )
+	<h2>Edit Item</h2>
+#else
+	<h2>Add New Item</h2>
+#end
+
+<form 
+	class="w3-container w3-light-grey w3-medium w3-padding-16"
+	id="categoryEdit"
+	method="post"
+	enctype="multipart/form-data"
+	action="$link.setAction("inventory.ProductSQL").setPage("inventory,Items.vm")">
+	
+	
+	<label class="w3-label"><b>Title</b></label>
+	<input class="w3-input" type="text" name="title" value="$!entry.Title">
+
+	<label class="w3-label"><b>Description</b></label>
+	<input class="w3-input" type="text" name="description" value="$!entry.Description">
+
+	<label class="w3-label"><b>Price</b></label>
+	<input class="w3-input" type="text" name="price" value="$!entry.Price">
+
+	#fileUpload( "Image File:" "imageFile" )
+
+	<label class="w3-label"><b>Quantity</b></label>
+	#set ( $qty = "1" )
+	#if ( $entry )
+		#set ( $qty = $!entry.Quantity ) 
+	#end
+	<input class="w3-input" type="text" name="quantity" value="$qty">
+
+	<label class="w3-label"><b>Item Category</b></label>
+	<select name="catId" class="w3-input">
+	#foreach ( $cat in $categories )
+		#set ( $selected = "" )
+		#if  ($entry )
+			#if ( $!entry.CatId == $!cat.RefId )
+				#set ( $selected = " SELECTED" )
+			#end
+		#end
+		<option value="$cat.RefId" $selected>$!cat.CategoryName</option>
+	#end
+	</select>
+
+	<br/>
+	<div class="w3-center">
+		#if (  $entry )
+			<input type="hidden" name="refId" value="$!entry.RefId">
+			<input type="submit" class="w3-button w3-blue w3-rounded" name="eventSubmit_doUpdate" value="Update"/>
+		#else
+			<input type="submit" class="w3-button w3-blue w3-rounded" name="eventSubmit_doInsert" value="Add"/>
+		#end
+	</div>
+</form>
+
+
+<h2>Items</h2>
+
+<table class="w3-table-all w3-striped">
+	<tr>
+		<th>Item</th>
+		<th>Category</th>
+		<th>Picture</th>
+		<th>Quantity</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+	#foreach ( $item in $items )
+	<tr>
+		<td> $!item.Title <br/> $!item.Description <br/> $!item.getFormattedPrice() </td>
+		<td> $!item.getItemCategory().CategoryName </td>
+		<td> 
+			<img src="$content.getURI("images/uploads/$item.FileName")" width="100px;">
+		</td>
+		<td> $!item.Quantity </td>
+		<td> <a href="$link.setPage("inventory,Items.vm").addPathInfo("refId", $!item.RefId)">Edit</a> </td>
+		<td> 
+			<form 
+				method="post"
+				action="$link.setAction("inventory.ProductSQL").setPage("inventory,Items.vm")">
+					<input type="hidden" name="refId" value="$!item.RefId">
+					<input type="submit" name="eventSubmit_doDelete" value="Delete"/>
+			</form>
+		</td>
+	</tr>
+	#end
+</table>
+
+
+</div>

@@ -1,0 +1,177 @@
+#set ( $categories    = $data.getUser().getItemCategories() )
+#set ( $welcome_msg   = $data.getUser().getHomepageMessage() )
+#set ( $welcome_image = $data.getUser().getHomepageImage() )
+
+<!-- Top header -->
+<header class="w3-container">
+	$welcome_msg
+</header>
+
+<!-- Image header -->
+#if ( $welcome_image )
+
+<div class="w3-display-container w3-container">
+	<img src="$content.getURI("images/uploads/$welcome_image")" alt="LOGO" style="width: 50%;">
+	<div class="w3-display-topleft w3-text-white" style="padding: 24px 48px">
+		<p>	<a href="#itemset" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a> </p>
+	</div>
+</div>
+#end
+
+
+<div class="w3-container w3-text-grey" id="itemset">&nbsp;</div>
+
+	  
+      #foreach ( $category in $categories )
+	      #set ( $total_items = $category.getItemCount() )
+		  <div class="w3-container w3-text-grey" id="itemset_$!category.RefId">
+		  	<h2>$!category.CategoryName</h2>
+		    <p>$total_items items</p>
+		  </div>
+
+		##
+		## Build product grid
+		##
+		#set ( $items = $category.getCategoryItemsToShow() )
+		#set ( $row_count = 0 )
+		#set ( $col_count = 0 )		
+		
+		#set ( $start_row = "<div class='w3-row'>" )
+		#set ( $end_row   = "</div>" )
+
+		#set ( $start_col = "<div class='w3-col l3 s6'>" )
+		#set ( $end_col   = "</div>" )
+		
+		#set ( $max_row = 6 )
+		#set ( $max_col = 2 )
+		
+		#set ( $last_col = 0 )
+		#set ( $idx = 0  )
+
+        ## always start a row
+        #foreach ( $item in $items )
+
+            #if( $col_count == 0 )
+                #set ( $last_col = 0 )
+                #if($row_count == 0)
+                    $start_row
+                #end
+                $start_col
+            #end
+
+            ##                
+            ## Print the item
+            ##
+            
+
+            #if ( $!item.Quantity > 0 )
+            <div class="w3-container">
+                <div class="w3-display-container">
+                    <img src="$content.getURI("images/uploads/$item.FileName")" style="width:100%">
+                    <div class="w3-display-middle w3-display-hover">
+                    	<form method="post" action="$link.setAction("CartSQL").setPage("Cart.vm")">
+                    		<input type="hidden" name="refId" value="$!item.RefId">
+                    		<button type="submit" class="w3-button w3-black w3-rounded" name="eventSubmit_doAdd">Buy now <i class="fa fa-shopping-cart"></i></button>	
+                    	</form>
+                    </div>
+                </div>
+                <p><b>$item.Title</b> &nbsp;&nbsp; $item.Description <br> <b>$item.getFormattedPrice()</b></p>
+			</div>
+			#else
+            <div class="w3-container">
+                <div class="w3-display-container">
+                    <img src="$content.getURI("images/uploads/$item.FileName")" style="width:100%">
+                    <div class="w3-tag w3-red">Sold</div>
+                </div>
+                <p><b>$item.Title</b> &nbsp;&nbsp; $item.Description </p>
+			</div>
+			#end
+            
+            
+            ## Logic here
+            #set( $col_count = $col_count + 1 )
+            #set( $row_count = $row_count + 1 )
+
+            ## end of column?    
+            #if( $col_count == $max_col )
+
+                ## end of row?
+                #if($row_count == $max_row)
+                	#if ( $idx < $total_items )
+	                    $end_col
+	                    $end_row
+	                    #set ($row_count = 0 )
+                    #end
+                #else
+                    $end_col
+                    #set($last_col = 1)
+                #end
+                
+                #set ( $col_count = 0 )
+                
+            #end
+
+			#if( $row_count == $max_row )
+				#if ( $last_col == 0 )
+					$end_col
+				#end
+				$end_row
+				
+				#set($col_count = 0 )
+				#set($row_count = 0 )
+			#end
+			
+
+            ## Next item
+            #set ($idx = $idx + 1)
+        #end
+        ## End of all items in this category
+        
+        ## always end a row
+        #if ($last_col == 0)
+            $end_col
+        #end
+            
+        $end_row
+
+			
+	  #end
+	  ## End of category
+	  
+
+
+  <!-- Footer -->
+  <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+    <div class="w3-row-padding">
+      <div class="w3-col s4">
+        <h4>Contact</h4>
+        <p>Questions? Go ahead.</p>
+        <form action="$link.setAction("ContactAction").setPage("Index.vm")">
+          <p><input class="w3-input w3-border" type="text" placeholder="Name" name="name" required></p>
+          <p><input class="w3-input w3-border" type="text" placeholder="Email" name="email" required></p>
+          <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="subject" required></p>
+          <p><input class="w3-input w3-border" type="text" placeholder="Message" name="message" required></p>
+          
+          <input type="submit" class="w3-button w3-block w3-black" name="eventSubmit_doContact" value="Send"/>
+        </form>
+      </div>
+
+      <div class="w3-col s4">
+      	<div class="w3-cell-bottom">
+      	   <a class="w3-button w3-black" href="$link.setPage("Login.vm")">Admin Login</a>
+      	</div>
+      </div>
+
+      <div class="w3-col s4 w3-justify">
+        <h4>$!CompanyName</h4>
+        <p><i class="fa fa-fw fa-envelope"></i> $data.getUser().getAdminEmail() </p>
+        <h4>We accept</h4>
+        <p><i class="fab fa-paypal"></i> Paypal</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://jivecast.com" title="JiveCast" target="_blank" class="w3-hover-opacity">JiveCast</a>  &copy; 2025 </div>
+
+  <!-- End page content -->
+</div>

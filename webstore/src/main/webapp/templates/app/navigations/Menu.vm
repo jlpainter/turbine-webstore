@@ -1,0 +1,70 @@
+#set ( $user = $data.getUser() )
+#set ( $companyName = $user.getCompanyName() )
+#set ( $categories = $user.getItemCategories() )
+
+
+<div class="w3-container w3-white topnav" id="topnav" style="position: fixed; top: 0px;">
+	<div class="w3-bar w3-border w3-large">
+
+		<a class="w3-bar-item w3-button w3-blue w3-left" href="$link.setPage("Index.vm")" class="w3-green"><i class="fa fa-home"></i></a>
+		<div class="w3-dropdown-hover">
+			<button class="w3-button"> Item Categories &nbsp;</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				#foreach ( $category in $categories )
+				<a class="w3-bar-item w3-button" href="$link.setPage("Index.vm")#itemset_$!category.RefId">$!category.CategoryName</a>
+				#end
+			</div>
+		</div>
+		<div class="w3-bar-item w3-right"><a href="$link.setPage("Cart.vm")"><i class="fa fa-shopping-cart w3-margin-right"></i></a></div>
+
+    ## Test that the user is logged in
+	#if( $user.hasLoggedIn() )
+
+			<div class="w3-dropdown-hover">
+		      <button class="w3-button"> <i class="fa fa-leaf"></i></button>
+		      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+			      <a class="w3-bar-item w3-button" href="$link.setPage("admin,ViewOrders.vm")">Unshipped Orders</a>
+			      <a class="w3-bar-item w3-button" href="$link.setPage("admin,ViewOrders.vm").addPathInfo("mode", "completed")">Completed Orders</a>
+			      <a class="w3-bar-item w3-button" href="$link.setPage("admin,ViewOrders.vm").addPathInfo("mode", "incomplete")">Unpaid Orders</a>
+		      </div>
+		    </div>		
+
+
+		  <div class="w3-dropdown-hover">
+		    <button class="w3-button"><i class="fa fa-tags"></i> </button>
+		    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a class="w3-bar-item w3-button" href="$link.setPage("inventory,Categories.vm")">Item Categories</a>
+				<a class="w3-bar-item w3-button" href="$link.setPage("inventory,Items.vm")">Items</a>
+		    </div>
+		   </div>		  
+
+		  <div class="w3-dropdown-hover">
+		    <button class="w3-button"><i class="fa fa-cogs"></i></button>
+		    <div class="w3-dropdown-content w3-bar-block w3-card-4">
+				
+					<a class="w3-bar-item w3-button" href="$link.setPage("admin,Config.vm")"> Company Config</a>
+					<a class="w3-bar-item w3-button" href="$link.setPage("admin,Homepage.vm")"> Homepage</a>
+					<a class="w3-bar-item w3-button" href="$link.setPage("admin,ViewMessages.vm")">Customer Contact</a>
+					
+					
+					<a class="w3-bar-item w3-button" href="$link.setPage("user,FluxUserList.vm")">User List <div class="w3-right"><i class="fa fa-users"></i></div></a>
+					<a class="w3-bar-item w3-button" href="$link.setPage("role,FluxRoleList.vm")">User Roles <div class="w3-right"><i class="fa fa-user-plus"></i></div></a>
+					<a class="w3-bar-item w3-button" href="$link.setPage("user,FluxUserForm.vm")?mode=insert">Add User <div class="w3-right"><i class="fa fa-user"></i></div></a>
+					<a class="w3-bar-item w3-button" href="$link.setPage("admin,LogViewer.vm")">System Logs <div class="w3-right"><i class="fa fa-exclamation-triangle"></i></div></a>
+				</div>
+			</div>			  
+
+			<a class="w3-bar-item w3-red w3-button w3-right" href="$link.setAction("LogoutUser")"> <i class="fa fa-power-off"></i></a>
+		
+	#end
+
+
+		<div class="w3-bar-item w3-right">$companyName</div>
+	</div>
+		
+
+</div>
+
+
+
+

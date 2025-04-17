@@ -1,0 +1,415 @@
+/*
+ * OrderManager Default Style Sheet
+ * JiveCast
+ * Jeff Painter - @2010
+ */
+
+
+/*
+ * body
+ */
+body { 
+	color: #333; 
+	font-size: 10px; 
+	font-family: Verdana, Geneva; 
+	background-color: #ffffff;
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
+
+/*
+ * shopping cart animated buttons - from W3C website
+ */
+.cartButton {
+  margin: 1em 0;
+  width: 10em;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 70%;
+  font-weight: bold;
+}
+.cartButton a {
+  display: block;
+  width: 100%;
+}
+.cartButton a:link,
+.cartButton a:visited,
+.cartButton a:hover {
+  background-color: #eeeeff;
+  color: #000;
+  text-decoration: none;
+}
+.cartButton a:link,
+.cartButton a:visited {
+  border-top: 1px solid #cecece;
+  border-bottom: 2px solid #4a4a4a;
+  border-left: 1px solid #cecece;
+  border-right: 2px solid #4a4a4a;
+}
+.cartButton a:hover {
+  border-bottom: 1px solid #cecece;
+  border-top: 2px solid #4a4a4a;
+  border-right: 1px solid #cecece;
+  border-left: 2px solid #4a4a4a;
+}
+.cartButton span.cart {
+  padding: 0 0.4em;
+  background-color: #fff;
+  color: #0c479d;
+}
+
+.webButton {
+  border-top: 1px solid #cecece;
+  border-bottom: 2px solid #4a4a4a;
+  border-left: 1px solid #cecece;
+  border-right: 2px solid #4a4a4a;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 90%;
+  font-weight: bold;
+}
+
+
+/*
+ * Standard application links
+ */
+a:link    { color: #314894; font-size: 10px; text-decoration: none; background-color: transparent; }
+a:visited { color: #314894; font-size: 10px; text-decoration: none; }
+a:hover  { color: #314894; text-decoration: underline; }
+
+a.highLighted:link    { color: #314894; font-size: 10px; text-decoration: none; background-color: transparent; }
+a.highLighted:visited    { color: #314894; font-size: 10px; text-decoration: none; background-color: transparent; }
+a.highLighted:hover    { color: #314894; font-size: 10px; text-decoration: none; background-color: transparent; }
+
+a.white:link    { color: #ffffff; font-size: 10px; text-decoration: none; background-color: transparent; }
+a.white:visited    { color: #ffffff; font-size: 10px; text-decoration: none; background-color: transparent; }
+a.white:hover    { color: #eeeeff; font-size: 10px; text-decoration: none; background-color: transparent; }
+
+a.aqua:link    { color: #000000; font-size: 12px; text-decoration: none; background-color: transparent; }
+a.aqua:visited    { color: #000000; font-size: 12px; text-decoration: none; background-color: transparent; }
+a.aqua:hover    { color: #314894; font-size: 12px; text-decoration: none; background-color: transparent; }
+
+/*
+ * Location indicator
+ */
+.prgLocation {
+	font-size: 14px;
+	color: #660000;
+}
+
+/*
+ * Premium Tracker specs
+ */
+.ptHeader {
+	font-size: 14px;
+	color: #8888aa;
+}
+
+/*
+ * small user input
+ */
+.smallIO {
+
+	color: #0000FF;
+	font-size: 10px;
+	font-family: Arial, Verdana, Geneva;
+	
+}
+
+.readOnlySmallIO {
+
+	color: #FF0000;
+	font-size: 10px;
+	font-family: Arial, Verdana, Geneva;
+	
+}
+
+/*
+ * the button class, used for graphical buttons
+ */
+A.button:link {
+		color: #ffffff;
+		background-color: #ffffff;
+		text-decoration: none;
+}
+
+A.button:visited {
+		color: #ffffff;
+		background-color: #ffffff;
+		text-decoration: none;
+}
+
+A.button:hover {
+		color: #ffffff;
+		background-color: #ffffff;
+		text-decoration: none;
+}
+
+
+/*
+ * table setup
+ */
+table { font-size: 12px; margin-top: 0px; margin-left: 0px; }
+
+.orderTbl {
+	font-size: 12px;
+	width: 100%;
+	border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+p {}
+
+ .menuCat {
+		color: #444499;
+		font-size: 12px;
+		font-weight: 900;
+		font-family: verdana, arial, geneva;
+  }
+
+ .menuBlock {
+		color: #ffffff;
+	 	list-style: square;
+		margin-top: 10px;
+		margin-left: 20px; }
+
+ .hidden {
+           visibility: hidden;
+ }
+
+ .menuHeader {
+	color: #ffffff;
+	background-color: #eeeeee;
+	font-size: 12px;
+ }
+
+ .menuHeader2 {
+	color: #003355;
+	background-color: #eeeeee;
+	font-size: 10px;
+ }
+
+div.focus {
+ border-top: 2px solid #57A;
+ border-left: 2px solid #57A;
+ border-bottom: 1px solid #57A;
+ border-right: 1px solid #57A;
+ margin-left: 2px;
+ background-color: #dedeff;
+ color: #003399;
+}
+
+
+/*
+ * Customer details screen
+ * also used for supplier details
+ */
+.customerDetails { 
+    margin-top: 10px;
+    margin-left: 10px;
+    visibility: hidden;
+    position: absolute; }
+
+.customerDetailsOn {
+		margin-top: 10px;
+		margin-left: 10px;
+		position: absolute;
+		visibility: visible;
+ }
+
+.colors {
+		margin-top: 10px;
+		margin-left: 10px;
+		position: absolute;
+		visibility: hidden;
+ }
+ 
+.colorsOn {
+		margin-top: 10px;
+		margin-left: 10px;
+		position: absolute;
+		visibility: visible;
+ }
+ 
+.customerDetailsButtons {
+		margin-top: 200px;
+		margin-left: 10px;
+		position: absolute;
+		visibility: hidden;
+ }
+ 
+
+/*--------------------------------------------------|
+| dTree 2.05 | www.destroydrop.com/javascript/tree/ |
+|---------------------------------------------------|
+| Copyright (c) 2002-2003 Geir Landr�               |
+|--------------------------------------------------*/
+
+.dtree {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #666;
+	white-space: nowrap;
+}
+.dtree img {
+	border: 0px;
+	vertical-align: middle;
+}
+.dtree a {
+	color: #333;
+	text-decoration: none;
+}
+.dtree a.node, .dtree a.nodeSel {
+	white-space: nowrap;
+	padding: 1px 2px 1px 2px;
+}
+.dtree a.node:hover, .dtree a.nodeSel:hover {
+	color: #333;
+	text-decoration: underline;
+}
+.dtree a.nodeSel {
+	background-color: #c0d2ec;
+}
+.dtree .clip {
+	overflow: hidden;
+}
+
+
+/*-----------------------------------------------|
+| nice tables... metal skin 
+|------------------------------------------------*/
+
+#cat A:link, #cat A:visited, #cat A:active {
+	COLOR: #3B3B4C;
+	TEXT-DECORATION: none;
+}
+#cat A:hover {
+	COLOR: #6A7384;
+	TEXT-DECORATION: underline;
+}
+#ltlink A:link, #ltlink A:visited, #ltlink A:active {
+	COLOR: #000020;
+	TEXT-DECORATION: none;
+}
+#ltlink A:hover {
+	COLOR: #6A7384;
+	TEXT-DECORATION: underline;
+}
+
+.lf { font-family: verdana,arial,helvetica,sans-serif; font-size: 12px; }
+.nf { font-family: verdana,arial,helvetica,sans-serif; font-size: 12px; }
+.sf { font-family: verdana,arial,helvetica,sans-serif; font-size: 10px; }
+.cat A:link, .cat A:visited, .cat A:active {
+	color: #000020;
+                text-decoration: none;
+}
+.cat A:hover {
+	color: #6A7384;
+	text-decoration: underline;
+}
+
+/*-----------------------------------------------|
+| stuff from coccoon website I liked
+|------------------------------------------------*/
+
+.menu { background-color: #4C6C8F; margin: 0px; padding: 3px 8px 5px 3px;  font-size : 90%;  } 
+.menu a:link { color: #FFFFFF;  text-decoration : none;  }
+.menu a:visited { color: #FFFFFF; text-decoration : none; }
+.menu a:hover { color: #FFCC00; text-decoration : none; }
+.menu ul { margin: 0px 0px 0px 20px; padding: 0px; }
+.menu li  { list-style-image: url('images/ipm/images/label.gif'); font-weight : bold; }
+.menu ul ul li .sel { list-style-image: url('images/ipm/images/current.gif'); font-weight : normal; }
+.menu ul ul li  { list-style-image: url('images/ipm/images/page.gif'); font-weight : normal; }
+
+.tab { font-size : 85%; border: 0 }
+.tab a:link {   text-decoration : none;  }
+.tab a:visited { text-decoration : none; color: #2A4A6D; }
+.tab a:hover { color: #000066; }
+
+table .title { background-color: #FFFFFF; width:100%; border: 0px; }
+.dida { font-size: 80%; }
+
+.pre { white-space: pre;}
+
+.content { 
+    padding: 5px 5px 5px 10px; 
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size : 14px; 
+}
+.content .ForrestTable { width: 100%; background-color: #7099C5; color: #ffffff; font-size : 90%;}
+.content .ForrestTable caption { text-align: left; color: black; font-weight: bold; }
+.content .ForrestTable th { text-align: center; }
+.content .ForrestTable td { background-color: #f0f0ff; color: black; }
+
+.frame { margin: 5px 20px 5px 20px; font-size: 90%; }
+.frame .content { margin: 0px; }
+
+.note { border: solid 1px #7099C5; background-color: #f0f0ff; }
+.note .label { background-color: #7099C5; color: #ffffff; }
+
+.warning { border: solid 1px #D00000; background-color: #fff0f0; }
+.warning .label { background-color: #D00000; color: #ffffff; font-size: 10px; text-align: left; }
+
+.ptbank { border: solid 1px #8888aa; background-color: #f0f0ff; }
+.ptbank .label { background-color: #8888aa; color: #ffffff; font-size: 10px; text-align: left; }
+
+.success { border: solid 1px #00D000; background-color: #f0fff0; }
+.success .label { background-color: #00D000; color: #ffffff; font-size: 10px; text-align: left }
+
+.fixme { border: solid 1px #C6C600; background-color: #FAF9C3; }
+.fixme .label { background-color: #C6C600; color: #ffffff; }
+
+.code { border-color: #CFDCED; border-style: solid; border-width: 1px; }
+.codefrag {	font-family: "Courier New", Courier, monospace; }
+
+.orangeFrame { border: solid 1px #EE6B0A; background-color: #FBE6CE; margin-bottom: 10px; }
+.orangeFrame .label { background-color: #EE6B0A; color: #ffffff; font-size: 10px; text-align: left }
+
+.redFrame { border: solid 1px #D00000; background-color: #fff0f0; margin-bottom: 10px; }
+.redFrame .label { background-color: #D00000; color: #ffffff; font-size: 10px; text-align: left; }
+
+.greenFrame { border: solid 1px #059728; background-color: #BEF1CA; margin-bottom: 10px; }
+.greenFrame .label { background-color: #059728; color: #ffffff; font-size: 10px; text-align: left; }
+
+.purpleFrame { border: solid 1px #7A07A5; background-color: #EDD8F5; margin-bottom: 10px; }
+.purpleFrame .label { background-color: #7A07A5; color: #ffffff; font-size: 10px; text-align: left; }
+
+.pinkFrame { border: solid 1px #F103B6; background-color: #FBDDF4; margin-bottom: 10px; }
+.pinkFrame .label { background-color: #F103B6; color: #ffffff; font-size: 10px; text-align: left;}
+
+.yellowFrame { border: solid 1px #F9E503; background-color: #FBF8DA; margin-bottom: 10px; }
+.yellowFrame .label { background-color: #F9E503; color: #000000; font-size: 10px; text-align: left; }
+
+.aquaFrame { border: solid 1px #01D5D2; background-color: #D6F9F9; margin-bottom: 10px; }
+.aquaFrame .label { background-color: #01D5D2; color: #ffffff; font-size: 10px; text-align: left; }
+
+.blueFrame { border: solid 1px #0000ff; background-color: #D7D7FF; margin-bottom: 10px; }
+.blueFrame .label { background-color: #0000ff; color: #ffffff; font-size: 10px; text-align: left; }
+
+.greyFrame { border: solid 1px #cccccc; background-color: #eeeeee; margin-bottom: 10px; }
+.greyFrame .label { background-color: #cccccc; color: #000000; font-size: 10px; text-align: left; }
+
+.brownFrame { border: solid 1px #695942; background-color: #E1D8CC; margin-bottom: 10px; }
+.brownFrame .label { background-color: #695942; color: #ffffff; font-size: 10px; text-align: left; }
+
+.defaultTop { border: solid 1px #cccccc; background-color: #CCCCCC; margin-top: 0px; margin-left: 0px; margin-bottom: 0px; }
+.defaultBottom { background-color: #ffffff; margin-top: 20px; }
+
+.highlight { background-color: yellow; }
+
+.minitoc {margin: 5px 5px 5px 40px;}
+
+.dtdElement { width: 100%;	font-size: 90%; background-color : #ffffff; }
+
+.dtdTag {    color: #990000; text-transform : uppercase;  font-style : normal;  font-size : 120%;  font-weight : bold; }
+
+
+.poBtn {
+	font-weight: normal;
+	text-transform: uppercase;
+	color: #F0EDEE;
+	background-color: #1813AD;
+	border: 2px solid #E0E0FF;
+	font-size: 12px;
+	text-align: center;
+	line-height: 2;
+}

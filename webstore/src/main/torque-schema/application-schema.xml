@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+-->
+
+<!-- ============================================================================== -->
+<!--                                                                                -->
+<!--  Database Definition for the Application                                       -->
+<!--                                                                                -->
+<!--  @version $Id: application-schema.xml                                          -->
+<!--                                                                                -->
+<!-- ============================================================================== -->
+
+<database xmlns="http://db.apache.org/torque/5.0/templates/database"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://db.apache.org/torque/5.0/templates/database
+        http://db.apache.org/torque/torque-5.0/documentation/orm-reference/database-5-0-strict.xsd"
+  name="webstore"
+  defaultIdMethod="native">
+ 
+	<!-- global config -->
+	<table name="COMPANY_CONFIG" idMethod="native">
+		<column name="REF_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+		<column name="COMPANY_NAME" type="VARCHAR" size="75" />
+		
+		<!-- contact info -->
+		<column name="ADMIN_EMAIL" type="VARCHAR" size="150" />
+		<column name="PHONE" type="VARCHAR" size="60" />
+		<column name="FAX" type="VARCHAR" size="60" />
+
+		<!-- paypal configuration -->
+		<column name="PAYPAL_CLIENT_ID" type="VARCHAR" size="200" />
+		<column name="PAYPAL_CLIENT_SECRET" type="VARCHAR" size="200" />
+		<column name="PAYPAL_SANDBOX" type="BOOLEANINT" default="0" />
+
+		<!-- ship from address on labels -->
+		<column name="ADDRESS_LINE_1" type="VARCHAR" size="255" />
+		<column name="ADDRESS_LINE_2" type="VARCHAR" size="255" />
+		<column name="CITY" type="VARCHAR" size="150" />
+		<column name="STATE" type="VARCHAR" size="50" />
+		<column name="ZIP" type="VARCHAR" size="20" />
+		<column name="COUNTRY" type="VARCHAR" size="150" />
+
+		<column name="TAX_RATE" type="DOUBLE" />
+		<column name="LOGO_FILE" type="BLOB" />
+		<column name="QUOTE_DAYS" type="INTEGER" default="30" />
+
+		<!-- terms -->
+		<column name="CONFIRMATION_TERMS" type="VARCHAR" size="2000" />
+		<column name="QUOTE_TERMS" type="VARCHAR" size="2000" />
+		<column name="PO_TERMS" type="VARCHAR" size="2000" javaName="POTerms"/>
+		<column name="INVOICE_TERMS" type="VARCHAR" size="2000" />
+
+	</table>
+
+	<table name="HOME_PAGE" idMethod="native">
+		<column name="REF_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+		<column name="WELCOME_MESSAGE" type="VARCHAR" size="1500" />
+		<column name="FILE_NAME" type="VARCHAR" size="255" />
+	</table>
+
+
+	<table name="CUSTOMER_CONTACT" idMethod="native">
+		<column name="REF_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+		<column name="NAME" type="VARCHAR" size="75" />
+		<column name="EMAIL" type="VARCHAR" size="150" />
+		<column name="SUBJECT" type="VARCHAR" size="255" />
+		<column name="MESSAGE" type="VARCHAR" size="700" />
+		<column name="SEND_DATE" type="TIMESTAMP" />
+	</table>
+
+
+	<!-- Simple author/book database example -->
+	<table name="ITEM_CATEGORY" idMethod="native">
+		<column name="REF_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+		<column name="CATEGORY_NAME" required="true" size="64"
+			type="VARCHAR" />
+	</table>
+
+	<table name="ITEM" idMethod="native">
+		<column name="REF_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+		<column name="CAT_ID" required="true" type="INTEGER" />
+		<column name="TITLE" required="true" size="64" type="VARCHAR" />
+		<column name="DESCRIPTION" size="255" type="VARCHAR" />
+		<column name="QUANTITY" type="INTEGER" />
+		<column name="PRICE" type="DOUBLE" />
+		<column name="FILE_NAME" type="VARCHAR" size="255" />
+		<column name="SHOW_SOLD" type="BOOLEANINT" default="1" />
+
+		<foreign-key foreignTable="ITEM_CATEGORY">
+			<reference local="CAT_ID" foreign="REF_ID"></reference>
+		</foreign-key>
+	</table>
+
+
+	<table name="WEB_ORDER" idMethod="native">
+		<column name="REF_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+
+		<column name="ORDER_DATE" type="TIMESTAMP" />
+		<column name="PAID" type="BOOLEANINT" default="0" />
+		<column name="SHIPPED" type="BOOLEANINT" default="0" />
+		<column name="CANCEL" type="BOOLEANINT" default="0" />
+
+		<!-- Customer contact -->
+		<column name="CUSTOMER_FIRST_NAME" type="VARCHAR" size="75" />
+		<column name="CUSTOMER_LAST_NAME" type="VARCHAR" size="75" />
+		<column name="CUSTOMER_EMAIL" type="VARCHAR" size="150" />
+
+		<!-- Ship to address -->
+		<column name="RECIPIENT_NAME" type="VARCHAR" size="255" />
+		<column name="ADDRESS_LINE_1" type="VARCHAR" size="255" />
+		<column name="ADDRESS_LINE_2" type="VARCHAR" size="255" />
+		<column name="CITY" type="VARCHAR" size="150" />
+		<column name="STATE" type="VARCHAR" size="50" />
+		<column name="ZIP" type="VARCHAR" size="20" />
+		<column name="COUNTRY" type="VARCHAR" size="150" />
+
+		<column name="SUBTOTAL" type="DOUBLE" />
+		<column name="SHIPPING" type="DOUBLE" />
+		<column name="TAX" type="DOUBLE" />
+		<column name="TOTAL" type="DOUBLE" />
+
+		<!-- Unique identifier to ensure paypal payments are recorded to the correct 
+			order number -->
+		<column name="PAYPAL_CUSTOM" type="CHAR" size="150" />
+	</table>
+
+	<table name="ORDER_DETAIL" idMethod="native">
+		<column name="REF_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+
+		<column name="ORDER_ID" required="true" type="INTEGER" />
+		<column name="ITEM_ID" required="true" type="INTEGER" />
+		<column name="ITEM_PRICE" type="DOUBLE" />
+		<column name="ITEM_QUANTITY" type="INTEGER" />
+
+		<foreign-key foreignTable="ITEM">
+			<reference local="ITEM_ID" foreign="REF_ID"></reference>
+		</foreign-key>
+
+		<foreign-key foreignTable="WEB_ORDER">
+			<reference local="ORDER_ID" foreign="REF_ID"></reference>
+		</foreign-key>
+	</table>
+
+
+	<!-- store payment notifications in this table -->
+	<table name="PAYPAL_IPN" idMethod="native">
+		<column name="REF_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+
+		<!-- this helps to make the link back to the user's account -->
+		<column name="PAYPAL_CUSTOM" type="CHAR" size="16" />
+
+		<!-- link to the order for which payment was made -->
+		<column name="ORDER_ID" type="INTEGER" required="true" />
+
+		<column name="TXN_ID" type="VARCHAR" size="50" />
+		<column name="TXN_TYPE" type="VARCHAR" size="50" />
+		<column name="PAYMENT_DATE" type="TIMESTAMP" />
+		<column name="PAYMENT_STATUS" type="VARCHAR" size="50" />
+		<column name="RECEIVER_EMAIL" type="VARCHAR" size="150" />
+
+		<!-- what did they buy? -->
+		<column name="ITEM_NUMBER" type="VARCHAR" size="150" />
+		<column name="ITEM_NAME" type="VARCHAR" size="150" />
+		<column name="ITEM_NUMBER_1" type="VARCHAR" size="150" />
+		<column name="ITEM_NAME_1" type="VARCHAR" size="150" />
+		<column name="QUANTITY" type="INTEGER" />
+
+		<!-- track the start/end date for the user subscription covered by this 
+			payment -->
+		<column name="SUB_START_DATE" type="TIMESTAMP" />
+		<column name="SUB_END_DATE" type="TIMESTAMP" />
+
+		<!-- invoice amounts -->
+		<column name="CURRENCY" type="CHAR" size="10" />
+		<column name="AMOUNT_PAID" type="DOUBLE" />
+		<column name="FEE" type="DOUBLE" />
+		<column name="SHIPPING" type="DOUBLE" />
+		<column name="TAX" type="DOUBLE" />
+
+		<!-- refunds/reversals -->
+		<column name="REASON_CODE" type="VARCHAR" size="250" />
+		<column name="RECEIPT_ID" type="VARCHAR" size="250" />
+
+		<!-- Demographics -->
+		<column name="FIRST_NAME" type="VARCHAR" size="250" />
+		<column name="LAST_NAME" type="VARCHAR" size="250" />
+		<column name="ADDRESS_NAME" type="VARCHAR" size="250" />
+		<column name="ADDRESS_STREET" type="VARCHAR" size="250" />
+		<column name="ADDRESS_CITY" type="VARCHAR" size="250" />
+		<column name="ADDRESS_STATE" type="VARCHAR" size="250" />
+		<column name="ADDRESS_ZIP" type="VARCHAR" size="250" />
+		<column name="ADDRESS_COUNTRY" type="VARCHAR" size="250" />
+
+		<!-- Payer data -->
+		<column name="PAYER_ID" type="VARCHAR" size="250" />
+		<column name="PAYER_TYPE" type="VARCHAR" size="250" />
+		<column name="PAYER_STATUS" type="VARCHAR" size="250" />
+		<column name="PAYER_EMAIL" type="VARCHAR" size="250" />
+
+		<foreign-key foreignTable="WEB_ORDER">
+			<reference local="ORDER_ID" foreign="REF_ID"></reference>
+		</foreign-key>
+
+	</table>
+
+
+	<!-- keep a complete history of user activity -->
+	<!-- transaction log -->
+	<table name="EVENT_LOG" idMethod="native">
+		<column name="LOG_ID" required="true" primaryKey="true"
+			type="INTEGER" autoIncrement="true" />
+		<column name="USER_ID" required="true" type="INTEGER" />
+		<column name="IP_ADDRESS" type="VARCHAR" size="50" />
+		<column name="TRANSACTION_TYPE" type="INTEGER" />
+		<column name="MESSAGE" type="VARCHAR" size="500" />
+		<column name="DESCRIPTION" type="VARCHAR" size="500" />
+		<column name="TX_DATE" type="TIMESTAMP" />
+	</table>
+
+</database>
+

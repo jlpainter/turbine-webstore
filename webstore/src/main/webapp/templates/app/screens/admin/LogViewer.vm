@@ -1,0 +1,49 @@
+<h2>Log Viewer</h2>
+
+#if ( $entries )
+<table class="w3-table w3-bordered">
+	<tr>
+		<th>Counter</th>
+		<th>Date</th>
+		<th>IP</th>
+		<th>Transaction Type</th>
+		<th>Description</th>
+	</tr>
+	
+	#set ( $i = ( ($!current_page ) * 50 ) )
+	#foreach ( $e in $!entries )
+	#set ( $i = $i + 1 )
+	<tr>
+		<td align="center">$!i</td>
+		<td align="center"> $date.displayDate( $!e.TxDate ) </td>
+		<td align="left">$!e.IpAddress</td>
+		<td align="center">$!e.TransactionType</td>
+		<td align="left">$!e.Message</td>
+	</tr>
+	#end
+</table>
+
+	#set ( $maxHistory = 15 )	
+	#if ( $page_links.size() > 1 )
+	<div class="pagination">
+		Goto page...
+		#foreach ( $idx in $page_links )
+			#if ( $idx < $maxHistory )
+				
+				#set ( $pc = $idx + 1)
+				#if ( $current_page )
+					#if ( $idx == $current_page )
+					  <a class="w3-green" href="$link.setPage("admin,LogViewer.vm").addPathInfo("idx", $idx)">&nbsp; $pc &nbsp;</a>
+					#else
+					  <a href="$link.setPage("admin,LogViewer.vm").addPathInfo("idx", $idx)">&nbsp; $pc &nbsp;</a>
+					#end
+				#else
+				  <a href="$link.setPage("admin,LogViewer.vm").addPathInfo("idx", $idx)">&nbsp; $pc &nbsp;</a>
+				#end
+	
+			#end
+		#end
+	</div>	
+	#end
+
+#end

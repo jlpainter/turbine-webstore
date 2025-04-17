@@ -1,0 +1,53 @@
+
+<div class="w3-container">
+
+#if ( $entry )
+	<h2>Rename Category</h2>
+#else
+	<h2>Add New Category</h2>
+#end
+
+<form 
+	class="w3-container"
+	id="categoryEdit"
+	method="post"
+	action="$link.setAction("inventory.CategorySQL").setPage("inventory,Categories.vm")">
+	
+	<label class="w3-label"><b>Item Category</b></label>
+	<input type="text" name="category" value="$!entry.CategoryName">
+	
+	#if (  $entry )
+		<input type="hidden" name="refId" value="$!entry.RefId">
+		<input type="submit" name="eventSubmit_doUpdate" value="Update"/>
+	#else
+		<input type="submit" name="eventSubmit_doInsert" value="Add"/>
+	#end
+</form>
+
+
+<h2>Item Categories</h2>
+
+<table class="w3-table-all w3-striped">
+	<tr>
+		<th>Category</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+	#foreach ( $category in $categories )
+	<tr>
+		<td> $!category.CategoryName </td>
+		<td> <a href="$link.setPage("inventory,Categories.vm").addPathInfo("refId", $!category.RefId)">Edit</a> </td>
+		<td> 
+			<form 
+				method="post"
+				action="$link.setAction("inventory.CategorySQL").setPage("inventory,Categories.vm")">
+					<input type="hidden" name="refId" value="$!category.RefId">
+					<input type="submit" name="eventSubmit_doDelete" value="Delete"/>
+			</form>
+		</td>
+	</tr>
+	#end
+</table>
+
+
+</div>
