@@ -34,6 +34,15 @@ To run the application locally, follow these steps:
 3. **Update PayPal callback URL:**
    - In `src/main/java/com/jivecast/webstore/paypal/PaymentServices.java`, set the `SERVER_URL` to the correct base URL where your app will be hosted.
 
+## 🔐 Default Admin Login
+
+Once the application is deployed, you can log into the admin panel using the default credentials:
+
+- **Username:** `admin`  
+- **Password:** `password`
+
+You should change these credentials immediately after setup for security.
+
 ## 💳 PayPal Integration
 
 WebStore uses the PayPal API for transaction processing. You’ll need to:
