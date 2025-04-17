@@ -37,7 +37,7 @@ You can see a the application running live at:
 - **Database:** MySQL (default) — configurable to other databases via `pom.xml`
 - **Build Tool:** Maven
 - **Deployment:** Jetty / Tomcat compatible
-- **Language:** Java 8+
+- **Language:** Java 11+
 
 ---
 
