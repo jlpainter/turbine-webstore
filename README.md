@@ -1,38 +1,83 @@
 # turbine-webstore
+
 A lightweight, customizable shopping cart and inventory manager for small businesses built with Apache Turbine and Torque.
 
-**WebStore** is a lightweight shopping cart and inventory management application designed specifically for small businesses. Built with the [Apache Turbine](https://turbine.apache.org/) framework (v6.0) and powered by [Apache Torque](https://db.apache.org/torque/) for ORM/database operations, WebStore offers a customizable and scalable foundation for e-commerce applications.
+## 🛍️ Overview
+
+**turbine-webstore** is a complete e-commerce and inventory management system tailored for small businesses. Built using the [Apache Turbine](https://turbine.apache.org/) framework (v6.0) and [Apache Torque](https://db.apache.org/torque/) ORM, the application provides out-of-the-box functionality for product management, order tracking, PayPal payments, and customizable branding — all backed by a flexible, database-driven architecture.
+
+---
 
 ## 🚀 Features
 
-- Complete product and inventory management
-- Shopping cart and order processing system
-- PayPal integration with sandbox/test mode support
-- Admin panel for configuration, branding, and reporting
-- PDF invoice generation and shipping label printing
-- Custom homepage and logo configuration
+- 🔧 Inventory and product catalog management
+- 🛒 Shopping cart and order workflow
+- 💳 PayPal integration with sandbox/test mode support
+- 📦 Order tracking and shipping label printing
+- 📄 PDF invoice generation with logo branding
+- 🧑‍💼 Admin panel with customizable homepage, credentials, and configuration
+- 🔒 Secure login and role-based access
+- 🧩 Easily extendable via Maven modules
+
+---
+
+## 🔎 Live Demo
+
+You can see a the application running live at:
+
+👉 **[https://stuffedchickens.com](https://stuffedchickens.com)**
+
+
+---
 
 ## ⚙️ Technology Stack
 
-- **Backend Framework:** Apache Turbine v6.0
-- **ORM/DB Layer:** Apache Torque
-- **Database:** MySQL (default, configurable)
-- **Build System:** Maven
+- **Framework:** Apache Turbine v6.0
+- **ORM Layer:** Apache Torque
+- **Database:** MySQL (default) — configurable to other databases via `pom.xml`
+- **Build Tool:** Maven
 - **Deployment:** Jetty / Tomcat compatible
+- **Language:** Java 8+
 
-## 🔧 Configuration
+---
 
-To run the application locally, follow these steps:
+## 🔧 Setup & Build Instructions
 
-1. **Create a MySQL database** called `webstore`.
+### 📦 Prerequisites
 
-2. **Update the following configuration files** with your own database username and password:
+- Java JDK 8 or later
+- Maven 3.x
+- MySQL (or any Torque-compatible database)
+
+### 🖥️ Option 1: Import into Eclipse
+
+This project is ready to import directly as a **Maven Project**:
+
+1. Open Eclipse.
+2. Navigate to **File > Import > Maven > Existing Maven Projects**.
+3. Select the root directory of this repository.
+4. Finish the import process.
+
+> Make sure to configure your database credentials before running.
+
+### 🧪 Option 2: Run via Command Line
+
+1. Create a MySQL database called `webstore`.
+2. Update the following files with your database **username** and **password**:
    - `pom.xml`
    - `src/main/webapp/WEB-INF/jetty-env.xml`
    - `src/main/webapp/META-INF/context.xml`
 
-3. **Update PayPal callback URL:**
-   - In `src/main/java/com/jivecast/webstore/paypal/PaymentServices.java`, set the `SERVER_URL` to the correct base URL where your app will be hosted.
+3. From the project root, run:
+
+```bash
+mvn clean install
+```
+
+This will generate all required tables and initialize the default schema using Torque.
+
+---
+
 
 ## 🔐 Default Admin Login
 
